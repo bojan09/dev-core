@@ -1,0 +1,294 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CSS Custom Properties — single source of truth for raw values
+   Tailwind tokens (surface-*, text-*, brand-*) are defined in tailwind.config.js
+   These CSS vars are for use in inline styles and non-Tailwind contexts
+═══════════════════════════════════════════════════════════════════════════ */
+:root {
+  /* Brand */
+  --accent:        #7B61FF;
+  --accent-light:  #A895FF;
+  --cyan:          #00C2FF;
+  --cyan-light:    #4DD9FF;
+
+  /* Surface */
+  --surface:       #0D1117;
+  --surface-el:    #161B22;
+  --surface-ov:    #1C2333;
+  --border:        #2A3441;
+  --border-light:  #374151;
+
+  /* Text */
+  --text-1:        #F0F6FF;
+  --text-2:        #8B9BB4;
+  --text-3:        #4B5563;
+
+  /* Track colors */
+  --python:   #3B82F6;
+  --sysadmin: #10B981;
+  --rust:     #F97316;
+  --lua:      #8B5CF6;
+  --go:       #06B6D4;
+
+  /* Layout */
+  --navbar-h:   4rem;
+  --sidebar-w:  16rem;
+  --sidebar-col: 4rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Base layer — reset + typography foundation
+═══════════════════════════════════════════════════════════════════════════ */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    font-family: var(--font-sans, "IBM Plex Sans", system-ui, sans-serif);
+    background-color: #0D1117;
+    color: #F0F6FF;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* Headings — tighter tracking for display use */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-sans, "IBM Plex Sans", system-ui, sans-serif);
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    font-weight: 600;
+  }
+
+  /* Code elements use mono */
+  code, kbd, pre, samp {
+    font-family: var(--font-mono, "IBM Plex Mono", ui-monospace, monospace);
+    font-size: 0.9em;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* Text selection */
+  ::selection {
+    background: rgba(123, 97, 255, 0.28);
+    color: #F0F6FF;
+  }
+
+  /* Focus ring */
+  :focus-visible {
+    outline: 2px solid #7B61FF;
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar       { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: #2A3441;
+    border-radius: 3px;
+    transition: background 0.2s;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: #374151; }
+  * { scrollbar-width: thin; scrollbar-color: #2A3441 transparent; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Component layer — reusable styled patterns
+═══════════════════════════════════════════════════════════════════════════ */
+@layer components {
+
+  /* ── Layout shell classes ──────────────────────────────────────────── */
+  .bg-grid-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 1;
+  }
+
+  .hero-glow-overlay {
+    position: fixed;
+    inset-inline: 0;
+    top: 0;
+    height: 640px;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 70% 40% at 50% 0%,
+      rgba(123, 97, 255, 0.10) 0%,
+      rgba(0, 194, 255, 0.05) 45%,
+      transparent 70%
+    );
+  }
+
+  .app-shell {
+    position: relative;
+    z-index: 1;
+    min-height: 100dvh;
+  }
+
+  /* ── Glassmorphism card ────────────────────────────────────────────── */
+  .glass-card {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.055) 0%,
+      rgba(255, 255, 255, 0.018) 100%
+    );
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.075);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      0 4px 32px rgba(0, 0, 0, 0.45);
+  }
+
+  /* ── Gradient text ─────────────────────────────────────────────────── */
+  .gradient-text {
+    background: linear-gradient(135deg, #7B61FF 0%, #00C2FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-warm {
+    background: linear-gradient(135deg, #F97316 0%, #FBBF24 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ── Animated underline link ───────────────────────────────────────── */
+  .link-underline {
+    position: relative;
+  }
+  .link-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 1.5px;
+    border-radius: 1px;
+    background: linear-gradient(90deg, #7B61FF, #00C2FF);
+    transition: width 0.25s ease;
+  }
+  .link-underline:hover::after { width: 100%; }
+
+  /* ── Progress bar ──────────────────────────────────────────────────── */
+  .progress-track {
+    height: 4px;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 99px;
+    background: linear-gradient(90deg, #7B61FF, #00C2FF);
+    transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* ── Badge / tag ───────────────────────────────────────────────────── */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 99px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.025em;
+    border: 1px solid transparent;
+  }
+
+  /* ── Sidebar transition ────────────────────────────────────────────── */
+  .sidebar-transition {
+    transition:
+      width 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* ── Shimmer skeleton ──────────────────────────────────────────────── */
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      #161B22 25%,
+      #1C2333 50%,
+      #161B22 75%
+    );
+    background-size: 300% 100%;
+    animation: shimmer 1.5s linear infinite;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Utility layer — one-off helpers
+═══════════════════════════════════════════════════════════════════════════ */
+@layer utilities {
+  /* Hide scrollbar visually but keep scroll */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Text wrap */
+  .text-balance { text-wrap: balance; }
+  .text-pretty  { text-wrap: pretty; }
+
+  /* Font features for mono */
+  .font-features {
+    font-feature-settings: "liga" 1, "calt" 1, "ss01" 1, "ss02" 1;
+    font-variant-ligatures: contextual;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Background helpers (used directly as class names, not Tailwind tokens)
+═══════════════════════════════════════════════════════════════════════════ */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Keyframe definitions
+═══════════════════════════════════════════════════════════════════════════ */
+@keyframes shimmer {
+  0%   { background-position: -300% 0; }
+  100% { background-position:  300% 0; }
+}
+
+@keyframes fadeUp {
+  0%   { opacity: 0; transform: translateY(16px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 1; }
+}

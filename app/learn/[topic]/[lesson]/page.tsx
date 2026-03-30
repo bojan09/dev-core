@@ -5,6 +5,18 @@ import { getLessonContent, getTrackLessons } from "@/lib/lessons";
 import { LessonHero } from "@/components/layout/lesson-hero";
 import { LessonSection, LessonProse, MistakeItem, SummaryList } from "@/components/layout/lesson-section";
 import { CodeBlock } from "@/components/code/code-block";
+import {
+  PythonFlowInfographic, RustOwnershipInfographic,
+  GoRoutinesInfographic, SysAdminFlowInfographic, LuaScriptingInfographic,
+} from "@/components/infographics";
+
+const INFOGRAPHICS: Record<string, React.ComponentType> = {
+  python:   PythonFlowInfographic,
+  sysadmin: SysAdminFlowInfographic,
+  rust:     RustOwnershipInfographic,
+  lua:      LuaScriptingInfographic,
+  go:       GoRoutinesInfographic,
+};
 
 interface Props { params: { topic: string; lesson: string } }
 
@@ -68,6 +80,17 @@ export default function LessonPage({ params }: Props) {
             ))}
           </LessonProse>
         </LessonSection>
+
+        {/* Track Infographic */}
+        {(() => {
+          const InfographicComp = INFOGRAPHICS[trackSlug];
+          if (!InfographicComp) return null;
+          return (
+            <LessonSection type="deep-dive">
+              <InfographicComp />
+            </LessonSection>
+          );
+        })()}
 
         {/* Code Examples */}
         {content.codeExamples.length > 0 && (

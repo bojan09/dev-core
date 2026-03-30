@@ -103,4 +103,3 @@ Open [http://localhost:3000](http://localhost:3000).
 ## 📄 License
 
 MIT — built as an open portfolio project.
-# dev-core

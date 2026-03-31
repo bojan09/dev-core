@@ -1,0 +1,73 @@
+/* ─── Shiki code block overrides ─────────────────────────────────────────── */
+
+/* Remove Shiki's default bg so our container controls it */
+.shiki-wrapper pre,
+.shiki-wrapper code {
+  background: transparent !important;
+  padding: 1.25rem;
+  display: block;
+  overflow-x: auto;
+  font-family: var(--font-mono, "IBM Plex Mono", ui-monospace, monospace);
+  font-size: 13px;
+  line-height: 1.75;
+  tab-size: 2;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Each line is a full-width flex row */
+.shiki-wrapper .line {
+  display: flex;
+  align-items: baseline;
+  min-height: 1.75em;
+  padding: 0 1.25rem;
+  margin: 0 -1.25rem;
+  position: relative;
+  white-space: pre;
+}
+
+/* Highlighted line */
+.shiki-wrapper .line[data-highlighted="true"] {
+  background: rgba(123, 97, 255, 0.12);
+  border-left: 2px solid #7B61FF;
+}
+.shiki-wrapper .line[data-highlighted="true"]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(123, 97, 255, 0.04);
+  pointer-events: none;
+}
+
+/* Line numbers */
+.line-number {
+  display: inline-block;
+  width: 2.5rem;
+  min-width: 2.5rem;
+  margin-right: 1.25rem;
+  text-align: right;
+  color: #374151;
+  font-size: 11px;
+  user-select: none;
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+/* Scrollbar inside code blocks */
+.shiki-wrapper pre::-webkit-scrollbar,
+pre::-webkit-scrollbar {
+  height: 4px;
+}
+.shiki-wrapper pre::-webkit-scrollbar-track,
+pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+.shiki-wrapper pre::-webkit-scrollbar-thumb,
+pre::-webkit-scrollbar-thumb {
+  background: #2A3441;
+  border-radius: 2px;
+}
+
+/* Selection colour inside code */
+.shiki-wrapper ::selection {
+  background: rgba(123, 97, 255, 0.3);
+}

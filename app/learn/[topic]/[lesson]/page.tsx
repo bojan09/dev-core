@@ -4,7 +4,7 @@ import { TRACKS, type TrackSlug } from "@/lib/constants";
 import { getLessonContent, getTrackLessons } from "@/lib/lessons";
 import { LessonHero } from "@/components/layout/lesson-hero";
 import { LessonSection, LessonProse, MistakeItem, SummaryList } from "@/components/layout/lesson-section";
-import { CodeBlock } from "@/components/code/code-block";
+import { CodeBlockServer } from "@/components/code/code-block-server";
 import {
   PythonFlowInfographic, RustOwnershipInfographic,
   GoRoutinesInfographic, SysAdminFlowInfographic, LuaScriptingInfographic,
@@ -101,7 +101,7 @@ export default function LessonPage({ params }: Props) {
                   {ex.title && (
                     <p className="text-sm font-semibold text-text-primary">{ex.title}</p>
                   )}
-                  <CodeBlock
+                  <CodeBlockServer
                     code={ex.code}
                     language={ex.language}
                     filename={ex.filename}
@@ -124,7 +124,7 @@ export default function LessonPage({ params }: Props) {
                 {content.realWorldExample.context}
               </p>
             </div>
-            <CodeBlock
+            <CodeBlockServer
               code={content.realWorldExample.code}
               language={trackSlug === "sysadmin" ? "python" : trackSlug}
               filename={`real_world.${trackSlug === "go" ? "go" : trackSlug === "rust" ? "rs" : "py"}`}

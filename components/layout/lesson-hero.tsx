@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
+import { HeroParticles } from "@/components/animations";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, Clock, BarChart2, Bookmark } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -52,7 +54,8 @@ export function LessonHero({
         style={{ background: `linear-gradient(90deg, transparent, ${track.color}60, transparent)` }}
       />
 
-      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-10">
+      <HeroParticles count={20} colors={[track.color, "#7B61FF", "#00C2FF"]} className="opacity-30" />
+    <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-10">
 
         {/* Breadcrumb nav */}
         <div className="flex items-center gap-2 text-xs text-text-muted mb-6 font-mono">
@@ -99,9 +102,14 @@ export function LessonHero({
         </div>
 
         {/* Title */}
-        <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-3 leading-tight text-balance">
+        <motion.h1
+          className="text-3xl sm:text-4xl font-bold text-text-primary mb-3 leading-tight text-balance"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0, 0, 0.2, 1], delay: 0.1 }}
+        >
           {title}
-        </h1>
+        </motion.h1>
 
         {/* Tagline */}
         <p

@@ -1,5 +1,6 @@
 import React from "react";
 import { TrendingUp, BookOpen, Clock, Flame } from "lucide-react";
+import { AnimatedCounter } from "@/components/animations";
 import { cn } from "@/lib/utils";
 
 interface StatItem {

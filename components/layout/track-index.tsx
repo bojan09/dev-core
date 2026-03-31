@@ -17,7 +17,8 @@ const LEVEL_COLORS = {
 };
 
 // Mock progress — Phase 9 replaces with Supabase
-const MOCK_DONE = new Set(["introduction", "variables", "control-flow"]);
+// Progress will come from Supabase in Phase 9 — empty until then
+const MOCK_DONE = new Set<string>();
 
 interface TrackIndexProps {
   trackSlug: TrackSlug;

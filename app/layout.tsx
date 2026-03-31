@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import "@/styles/globals.css";
+import "@/styles/shiki.css";
 
 /* ─── Fonts ───────────────────────────────────────────────────────────────── */
 // IBM Plex Sans — technical, clean, purpose-built for developer tools

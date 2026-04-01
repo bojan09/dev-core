@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Search, Bell, LayoutDashboard, BookOpen, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { UserMenu } from "./UserMenu";
 
 interface NavbarProps {
   onMenuClick?: () => void;
@@ -95,10 +96,7 @@ export function Navbar({ onMenuClick, sidebarOpen }: NavbarProps) {
           <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-brand-accent" />
         </button>
 
-        {/* Avatar */}
-        <div className="w-9 h-9 rounded-xl flex items-center justify-center text-[11px] font-semibold text-white bg-gradient-to-br from-brand-accent to-brand-cyan hover:ring-2 hover:ring-brand-accent/40 hover:ring-offset-2 hover:ring-offset-surface transition-all duration-150 cursor-pointer select-none">
-          CD
-        </div>
+        <UserMenu />
       </div>
     </header>
   );

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { TRACKS, type TrackSlug } from "@/lib/constants";
 import { getLessonContent, getTrackLessons } from "@/lib/lessons";
 import { LessonHero } from "@/components/layout/lesson-hero";
+import { LessonCompleteButton } from "@/components/ui/LessonCompleteButton";
 import { LessonSection, LessonProse, MistakeItem, SummaryList } from "@/components/layout/lesson-section";
 import { CodeBlockServer } from "@/components/code/code-block-server";
 import {
@@ -147,6 +148,11 @@ export default function LessonPage({ params }: Props) {
         <LessonSection type="summary">
           <SummaryList items={content.summary} />
         </LessonSection>
+
+        {/* Mark complete */}
+        <div className="flex justify-center pt-2">
+          <LessonCompleteButton trackSlug={trackSlug} lessonSlug={params.lesson} />
+        </div>
 
         {/* Bottom nav */}
         <div className="pt-6 border-t border-surface-border/50 flex items-center justify-between gap-4">

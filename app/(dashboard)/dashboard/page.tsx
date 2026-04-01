@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowRight, Sparkles, BookOpen, TrendingUp } from "lucide-react";
 import { TRACKS } from "@/lib/constants";
 import { TrackCard } from "@/components/ui/track-card";
-import { DashboardStats } from "@/components/ui/stats-bar";
+import { DashboardStatsLive } from "@/components/ui/DashboardClient";
 import { ActivityFeed } from "@/components/ui/activity-feed";
 import { ScrollReveal, StaggerGroup } from "@/components/animations";
 
@@ -46,7 +46,7 @@ export default function DashboardPage() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-8 space-y-10">
         {/* Stats */}
         <ScrollReveal direction="up" delay={0.05}>
-          <DashboardStats totalLessons={totalLessons} completedLessons={0} hoursLearned={0} streak={0} />
+          <DashboardStatsLive />
         </ScrollReveal>
 
         {/* Empty state */}

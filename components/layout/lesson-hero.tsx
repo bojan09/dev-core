@@ -4,7 +4,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import { HeroParticles } from "@/components/animations";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, Clock, BarChart2, Bookmark } from "lucide-react";
+import { ChevronLeft, ChevronRight, Clock, BarChart2 } from "lucide-react";
+import { BookmarkButton } from "@/components/ui/BookmarkButton";
 import { cn } from "@/lib/utils";
 import type { TrackSlug } from "@/lib/constants";
 import { TRACKS } from "@/lib/constants";
@@ -137,11 +138,7 @@ export function LessonHero({
 
           <div className="flex-1" />
 
-          {/* Bookmark button */}
-          <button className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-surface-elevated border border-surface-border hover:border-surface-border-light text-xs font-medium text-text-secondary hover:text-text-primary transition-all duration-150">
-            <Bookmark size={12} />
-            Bookmark
-          </button>
+          <BookmarkButton trackSlug={trackSlug} lessonSlug={lessonSlug} />
 
           {nextLesson && (
             <Link

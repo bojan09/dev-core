@@ -5,3 +5,4 @@ export * from "./dashboard-shell";
 export * from "./lesson-hero";
 export * from "./lesson-section";
 export * from "./track-index";
+export * from "./UserMenu";

@@ -8,6 +8,7 @@ import {
   Settings, ChevronLeft, ChevronRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SidebarUserChip } from "./UserMenu";
 import { TRACKS } from "@/lib/constants";
 
 interface SidebarProps {
@@ -110,17 +111,7 @@ export function Sidebar({ open, collapsed, onCollapse, onClose }: SidebarProps) 
           <NavItem href="/settings" label="Settings" icon={<Settings size={15} />}
             active={isActive("/settings")} collapsed={collapsed} onClick={onClose} />
 
-          {!collapsed && (
-            <div className="mt-2 p-3 rounded-xl bg-surface-elevated border border-surface-border flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-accent to-brand-cyan flex items-center justify-center text-[11px] font-semibold text-white shrink-0">
-                CD
-              </div>
-              <div className="min-w-0 flex-1">
-                <p className="text-xs font-medium text-text-primary truncate">Developer</p>
-                <p className="text-[10px] text-text-muted truncate">Free plan</p>
-              </div>
-            </div>
-          )}
+          <SidebarUserChip collapsed={collapsed} />
         </div>
       </aside>
     </>

@@ -6,29 +6,30 @@ import { cn } from "@/lib/utils";
 const containerVariants = cva("mx-auto w-full", {
   variants: {
     size: {
-      xs:   "max-w-screen-sm",   // 640px
-      sm:   "max-w-screen-md",   // 768px
-      md:   "max-w-screen-lg",   // 1024px
-      lg:   "max-w-screen-xl",   // 1280px
-      xl:   "max-w-screen-2xl",  // 1536px
+      xs: "max-w-screen-sm", // 640px
+      sm: "max-w-screen-md", // 768px
+      md: "max-w-screen-lg", // 1024px
+      lg: "max-w-screen-xl", // 1280px
+      xl: "max-w-screen-2xl", // 1536px
       full: "max-w-none",
     },
     padding: {
-      none:  "",
-      sm:    "px-4",
-      md:    "px-4 sm:px-6",
-      lg:    "px-4 sm:px-6 lg:px-8",
-      xl:    "px-4 sm:px-8 lg:px-12",
+      none: "",
+      sm: "px-4",
+      md: "px-4 sm:px-6",
+      lg: "px-4 sm:px-6 lg:px-8",
+      xl: "px-4 sm:px-8 lg:px-12",
     },
   },
   defaultVariants: {
-    size:    "lg",
+    size: "lg",
     padding: "lg",
   },
 });
 
 export interface ContainerProps
-  extends React.HTMLAttributes<HTMLDivElement>,
+  extends
+    React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof containerVariants> {}
 
 const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
@@ -38,7 +39,7 @@ const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
       className={cn(containerVariants({ size, padding, className }))}
       {...props}
     />
-  )
+  ),
 );
 Container.displayName = "Container";
 
@@ -47,10 +48,10 @@ const sectionVariants = cva("w-full", {
   variants: {
     spacing: {
       none: "",
-      sm:   "py-8",
-      md:   "py-12",
-      lg:   "py-16 md:py-20",
-      xl:   "py-20 md:py-28",
+      sm: "py-8",
+      md: "py-12",
+      lg: "py-16 md:py-20",
+      xl: "py-20 md:py-28",
     },
   },
   defaultVariants: {
@@ -59,11 +60,13 @@ const sectionVariants = cva("w-full", {
 });
 
 export interface SectionProps
-  extends React.HTMLAttributes<HTMLElement>,
+  extends
+    React.HTMLAttributes<HTMLElement>,
     VariantProps<typeof sectionVariants> {
   as?: "section" | "div" | "main" | "article";
 }
 
+// Fix: Changed the ref type to match the component type dynamically
 const Section = React.forwardRef<HTMLElement, SectionProps>(
   ({ className, spacing, as: Comp = "section", ...props }, ref) => (
     <Comp
@@ -71,7 +74,7 @@ const Section = React.forwardRef<HTMLElement, SectionProps>(
       className={cn(sectionVariants({ spacing, className }))}
       {...props}
     />
-  )
+  ),
 );
 Section.displayName = "Section";
 
@@ -79,54 +82,55 @@ Section.displayName = "Section";
 const stackVariants = cva("flex", {
   variants: {
     direction: {
-      row:    "flex-row",
-      col:    "flex-col",
+      row: "flex-row",
+      col: "flex-col",
       "row-reverse": "flex-row-reverse",
       "col-reverse": "flex-col-reverse",
     },
     gap: {
-      0:  "gap-0",
-      1:  "gap-1",
-      2:  "gap-2",
-      3:  "gap-3",
-      4:  "gap-4",
-      5:  "gap-5",
-      6:  "gap-6",
-      8:  "gap-8",
+      0: "gap-0",
+      1: "gap-1",
+      2: "gap-2",
+      3: "gap-3",
+      4: "gap-4",
+      5: "gap-5",
+      6: "gap-6",
+      8: "gap-8",
       10: "gap-10",
       12: "gap-12",
     },
     align: {
-      start:    "items-start",
-      center:   "items-center",
-      end:      "items-end",
-      stretch:  "items-stretch",
+      start: "items-start",
+      center: "items-center",
+      end: "items-end",
+      stretch: "items-stretch",
       baseline: "items-baseline",
     },
     justify: {
-      start:   "justify-start",
-      center:  "justify-center",
-      end:     "justify-end",
+      start: "justify-start",
+      center: "justify-center",
+      end: "justify-end",
       between: "justify-between",
-      around:  "justify-around",
-      evenly:  "justify-evenly",
+      around: "justify-around",
+      evenly: "justify-evenly",
     },
     wrap: {
-      true:  "flex-wrap",
+      true: "flex-wrap",
       false: "flex-nowrap",
     },
   },
   defaultVariants: {
     direction: "col",
-    gap:       4,
-    align:     "start",
-    justify:   "start",
-    wrap:      false,
+    gap: 4,
+    align: "start",
+    justify: "start",
+    wrap: false,
   },
 });
 
 export interface StackProps
-  extends React.HTMLAttributes<HTMLDivElement>,
+  extends
+    React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof stackVariants> {}
 
 const Stack = React.forwardRef<HTMLDivElement, StackProps>(
@@ -134,11 +138,11 @@ const Stack = React.forwardRef<HTMLDivElement, StackProps>(
     <div
       ref={ref}
       className={cn(
-        stackVariants({ direction, gap, align, justify, wrap, className })
+        stackVariants({ direction, gap, align, justify, wrap, className }),
       )}
       {...props}
     />
-  )
+  ),
 );
 Stack.displayName = "Stack";
 
@@ -146,31 +150,32 @@ Stack.displayName = "Stack";
 const gridVariants = cva("grid", {
   variants: {
     cols: {
-      1:  "grid-cols-1",
-      2:  "grid-cols-1 sm:grid-cols-2",
-      3:  "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
-      4:  "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
-      5:  "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5",
-      6:  "grid-cols-2 sm:grid-cols-3 lg:grid-cols-6",
+      1: "grid-cols-1",
+      2: "grid-cols-1 sm:grid-cols-2",
+      3: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
+      4: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
+      5: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5",
+      6: "grid-cols-2 sm:grid-cols-3 lg:grid-cols-6",
       auto: "grid-cols-[repeat(auto-fill,minmax(280px,1fr))]",
     },
     gap: {
-      0:  "gap-0",
-      2:  "gap-2",
-      4:  "gap-4",
-      5:  "gap-5",
-      6:  "gap-6",
-      8:  "gap-8",
+      0: "gap-0",
+      2: "gap-2",
+      4: "gap-4",
+      5: "gap-5",
+      6: "gap-6",
+      8: "gap-8",
     },
   },
   defaultVariants: {
     cols: 3,
-    gap:  6,
+    gap: 6,
   },
 });
 
 export interface GridProps
-  extends React.HTMLAttributes<HTMLDivElement>,
+  extends
+    React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof gridVariants> {}
 
 const Grid = React.forwardRef<HTMLDivElement, GridProps>(
@@ -180,21 +185,23 @@ const Grid = React.forwardRef<HTMLDivElement, GridProps>(
       className={cn(gridVariants({ cols, gap, className }))}
       {...props}
     />
-  )
+  ),
 );
 Grid.displayName = "Grid";
 
 /* ─── Divider ────────────────────────────────────────────────────────────── */
 const Divider = React.forwardRef<
   HTMLHRElement,
-  React.HTMLAttributes<HTMLHRElement> & { orientation?: "horizontal" | "vertical" }
+  React.HTMLAttributes<HTMLHRElement> & {
+    orientation?: "horizontal" | "vertical";
+  }
 >(({ className, orientation = "horizontal", ...props }, ref) => (
   <hr
     ref={ref}
     className={cn(
       "border-surface-border",
       orientation === "horizontal" ? "w-full border-t" : "h-full border-l",
-      className
+      className,
     )}
     {...props}
   />

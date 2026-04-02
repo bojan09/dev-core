@@ -66,15 +66,19 @@ export interface SectionProps
   as?: "section" | "div" | "main" | "article";
 }
 
-// Fix: Changed the ref type to match the component type dynamically
+// Fixed: Use a more flexible approach for the ref
 const Section = React.forwardRef<HTMLElement, SectionProps>(
-  ({ className, spacing, as: Comp = "section", ...props }, ref) => (
-    <Comp
-      ref={ref as React.Ref<HTMLElement>}
-      className={cn(sectionVariants({ spacing, className }))}
-      {...props}
-    />
-  ),
+  ({ className, spacing, as: Comp = "section", ...props }, ref) => {
+    // Create a type-safe ref that works with any HTML element
+    const elementRef = ref as React.Ref<HTMLElement>;
+    return (
+      <Comp
+        ref={elementRef}
+        className={cn(sectionVariants({ spacing, className }))}
+        {...props}
+      />
+    );
+  },
 );
 Section.displayName = "Section";
 

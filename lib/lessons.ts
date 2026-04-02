@@ -1,4 +1,5 @@
 import type { TrackSlug } from "./constants";
+import { EXPANDED_LESSONS } from "./lessons-expanded";
 
 /* ─── Types ──────────────────────────────────────────────────────────────── */
 export interface LessonMeta {
@@ -540,6 +541,9 @@ func main() {
 };
 
 /* ─── Helper: get lesson content with fallback ───────────────────────────── */
+/* Merge expanded lessons into the content map */
+Object.assign(LESSON_CONTENT, EXPANDED_LESSONS);
+
 export function getLessonContent(
   trackSlug: TrackSlug,
   lessonSlug: string

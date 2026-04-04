@@ -28,7 +28,7 @@ export function UserMenu() {
   }
 
   const initials = profile?.display_name
-    ? profile.display_name.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2)
+    ? (profile.display_name ?? "").split(" ").map((n: string) => n[0]).join("").toUpperCase().slice(0, 2) || "??"
     : user.email?.slice(0, 2).toUpperCase() ?? "??";
 
   const displayName = profile?.display_name ?? user.email?.split("@")[0] ?? "User";
@@ -118,7 +118,7 @@ export function SidebarUserChip({ collapsed }: { collapsed: boolean }) {
   if (loading || !user) return null;
 
   const initials = profile?.display_name
-    ? profile.display_name.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2)
+    ? (profile.display_name ?? "").split(" ").map((n: string) => n[0]).join("").toUpperCase().slice(0, 2) || "??"
     : user.email?.slice(0, 2).toUpperCase() ?? "?";
 
   const displayName = profile?.display_name ?? user.email?.split("@")[0] ?? "User";

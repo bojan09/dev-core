@@ -24,7 +24,7 @@ interface ScrollRevealProps {
   className?:  string;
   threshold?:  number;
   once?:       boolean;
-  as?:         keyof JSX.IntrinsicElements;
+  as?:         React.ElementType;
 }
 
 export function ScrollReveal({
@@ -42,11 +42,11 @@ export function ScrollReveal({
 
   // If reduced motion, render without animation
   if (reduced) {
-    const Tag = as as keyof JSX.IntrinsicElements;
+    const Tag = as as React.ElementType;
     return <Tag className={className}>{children}</Tag>;
   }
 
-  const MotionTag = motion[as as "div"] ?? motion.div;
+  const MotionTag = motion.div;
 
   const customVariants: Variants = duration
     ? {

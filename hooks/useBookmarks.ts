@@ -3,40 +3,48 @@
 import { useEffect, useState, useCallback } from "react";
 import { createClient } from "@/lib/supabase/client";
 import type { Bookmark } from "@/lib/database.types";
+import type { Database } from "@/lib/database.types";
+
+type BookmarkInsert = Database["public"]["Tables"]["bookmarks"]["Insert"];
 
 export function useBookmarks(userId: string | null | undefined) {
-  const supabase  = createClient();
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
   const [loading,   setLoading]   = useState(true);
 
   useEffect(() => {
-    if (!userId) { setBookmarks([]); setLoading(false); return; }
+    if (!userId) {
+      setBookmarks([]);
+      setLoading(false);
+      return;
+    }
 
+    const supabase = createClient();
     supabase
       .from("bookmarks")
       .select("*")
       .eq("user_id", userId)
       .order("created_at", { ascending: false })
       .then(({ data }) => {
-        setBookmarks(data ?? []);
+        setBookmarks((data as Bookmark[]) ?? []);
         setLoading(false);
       });
   }, [userId]);
 
   const isBookmarked = useCallback(
     (trackSlug: string, lessonSlug: string) =>
-      bookmarks.some((b) => b.track_slug === trackSlug && b.lesson_slug === lessonSlug),
+      bookmarks.some(
+        (b) => b.track_slug === trackSlug && b.lesson_slug === lessonSlug
+      ),
     [bookmarks]
   );
 
   const toggle = useCallback(
     async (trackSlug: string, lessonSlug: string) => {
       if (!userId) return;
-
-      const exists = isBookmarked(trackSlug, lessonSlug);
+      const supabase = createClient();
+      const exists   = isBookmarked(trackSlug, lessonSlug);
 
       if (exists) {
-        // Remove
         const { error } = await supabase
           .from("bookmarks")
           .delete()
@@ -47,24 +55,31 @@ export function useBookmarks(userId: string | null | undefined) {
         if (!error) {
           setBookmarks((prev) =>
             prev.filter(
-              (b) => !(b.track_slug === trackSlug && b.lesson_slug === lessonSlug)
+              (b) =>
+                !(b.track_slug === trackSlug && b.lesson_slug === lessonSlug)
             )
           );
         }
       } else {
-        // Add
+        // Explicitly typed insert payload — resolves Supabase generic inference issue
+        const payload: BookmarkInsert = {
+          user_id:    userId,
+          track_slug: trackSlug,
+          lesson_slug: lessonSlug,
+        };
+
         const { data, error } = await supabase
           .from("bookmarks")
-          .insert({ user_id: userId, track_slug: trackSlug, lesson_slug: lessonSlug })
+          .insert(payload)
           .select()
           .single();
 
         if (!error && data) {
-          setBookmarks((prev) => [data, ...prev]);
+          setBookmarks((prev) => [data as Bookmark, ...prev]);
         }
       }
     },
-    [userId, isBookmarked, supabase]
+    [userId, isBookmarked]
   );
 
   return { bookmarks, loading, isBookmarked, toggle };

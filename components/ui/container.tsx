@@ -65,13 +65,17 @@ export interface SectionProps
 }
 
 const Section = React.forwardRef<HTMLElement, SectionProps>(
-  ({ className, spacing, as: Comp = "section", ...props }, ref) => (
-    <Comp
-      ref={ref as React.Ref<HTMLElement>}
-      className={cn(sectionVariants({ spacing, className }))}
-      {...props}
-    />
-  )
+  ({ className, spacing, as: Comp = "section", ...props }, ref) => {
+    // Use explicit element map to avoid ref type mismatch
+    const El = Comp as "section";
+    return (
+      <El
+        ref={ref as React.RefObject<HTMLElement>}
+        className={cn(sectionVariants({ spacing, className }))}
+        {...(props as React.HTMLAttributes<HTMLElement>)}
+      />
+    );
+  }
 );
 Section.displayName = "Section";
 

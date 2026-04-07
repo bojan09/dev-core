@@ -11,3 +11,7 @@ export * from "./track-card";
 export * from "./stats-bar";
 export * from "./continue-card";
 export * from "./activity-feed";
+export * from "./command-palette";
+export * from "./tabs";
+export * from "./modal";
+export * from "./tooltip-enhanced";

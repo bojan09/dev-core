@@ -4,11 +4,12 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  Menu, X, Search, Bell,
+  Menu, X, Bell,
   LayoutDashboard, BookOpen, TrendingUp,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { UserMenu } from "./UserMenu";
+import { CommandPalette } from "@/components/ui/command-palette";
 
 interface NavbarProps {
   onMenuClick?:      () => void;
@@ -111,13 +112,7 @@ export function Navbar({ onMenuClick, sidebarOpen, sidebarWidth }: NavbarProps) 
 
       {/* ── Right actions ── */}
       <div className="flex items-center gap-2 ml-auto">
-        <button className="hidden sm:flex items-center gap-2 px-3 h-9 rounded-xl border border-white/[0.08] bg-white/[0.04] text-[#4B5563] hover:text-[#8B9BB4] text-xs transition-all duration-150 w-44">
-          <Search size={12} />
-          <span>Search lessons...</span>
-          <kbd className="ml-auto font-mono text-[10px] bg-white/[0.06] px-1.5 py-0.5 rounded-md">
-            ⌘K
-          </kbd>
-        </button>
+        <CommandPalette />
 
         <button
           aria-label="Notifications"
